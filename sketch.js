@@ -1,5 +1,6 @@
 var play = 1;
 var end = 0;
+var pre = 2;
 var gamestate;
 
 var player, playerImg, player_jmp;
@@ -63,8 +64,8 @@ player.setCollider('circle',-56, -150, 27)
 //player.debug = true
 
 invisibleGround = createSprite(0, windowHeight/2 + 120, 4000, 6)
-//invisibleGround.visible = false;
-invisibleGround.debug = true;
+invisibleGround.visible = false;
+//invisibleGround.debug = true;
 
 restart = createSprite(width/2,height/2 - 100, 300, 300);
 restart.addImage(restartImg); 
@@ -82,6 +83,7 @@ gameOver = createSprite(width/2 + 20,height/2- 200);
 gameOver.addImage(gameOverImg);
 gameOver.scale = 2;
 gameOver.visible = false;
+
 
 gamestate = play;
   
@@ -142,7 +144,7 @@ function draw() {
         cloudsGroup.setVelocityXEach(0);
         cloudsGroup.setLifetimeEach(-1)
         player.changeAnimation('jumping',player_jmp)
-        player.scale += 0.01
+        player.scale += 0.1
         gameOver.visible = true;
         restart.visible = true;
         if (score > hiscore) {
@@ -205,7 +207,7 @@ function spawnObstacles() {
       default: break;
     }
     obstacle.depth = player.depth;
-    player.depth +=1;
+    player.depth +=5;
     obstaclesGroup.add(obstacle);
     
 }
@@ -220,7 +222,7 @@ function spawnClouds() {
       cloud.lifetime = 600;
       cloud.depth = player.depth;
       player.depth = player.depth+5;
-      
+      gameOver.depth = cloud.depth + 1;
       cloudsGroup.add(cloud);
     }
     
